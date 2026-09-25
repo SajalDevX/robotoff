@@ -10,6 +10,8 @@ from robotoff.prediction.ocr.category import find_category
         ("Appellation Clairette de Die Protégée", ["fr:clairette-de-die"]),
         ("Appellation    Clairette \tde Die\n Protégée", ["fr:clairette-de-die"]),
         ("Chinon appellation d'origine protégée", ["fr:chinon"]),
+        ("Appellation Côtes du Rhône Contrôlée", ["fr:cotes-du-rhone"]),
+        ("APPELLATION SAINT-ÉMILION CONTRÔLÉE", ["fr:saint-emilion"]),
         (
             "Denominacion de Origen ProtegidA PIMENTON de la VERA",
             ["es:pimenton-de-la-vera"],
