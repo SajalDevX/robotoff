@@ -3,7 +3,7 @@ import re
 import pytest
 import requests
 
-from robotoff.off import get_product_type, get_source_from_url
+from robotoff.off import get_product_type, get_source_from_url, normalize_tag
 from robotoff.types import ProductIdentifier, ServerType
 
 
@@ -26,6 +26,23 @@ from robotoff.types import ProductIdentifier, ServerType
 )
 def test_get_source_from_url(url: str, output: str):
     assert get_source_from_url(url) == output
+
+
+@pytest.mark.parametrize(
+    "value,output",
+    [
+        ("Chinon", "chinon"),
+        ("Crémant de Loire", "cremant-de-loire"),
+        ("Côtes du Rhône", "cotes-du-rhone"),
+        ("CÔTES DU RHÔNE", "cotes-du-rhone"),
+        ("Saint-Émilion", "saint-emilion"),
+        ("Châteauneuf-du-Pape", "chateauneuf-du-pape"),
+        ("Mâcon-Villages", "macon-villages"),
+        ("Comté", "comte"),
+    ],
+)
+def test_normalize_tag(value: str, output: str):
+    assert normalize_tag(value) == output
 
 
 class TestGetProductType:
