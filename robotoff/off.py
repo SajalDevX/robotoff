@@ -19,6 +19,7 @@ from robotoff.types import (
     ServerType,
 )
 from robotoff.utils import http_session
+from robotoff.utils.text import fold_without_deletion
 
 logger = logging.getLogger(__name__)
 
@@ -996,11 +997,9 @@ def normalize_tag(value, lowercase=True):
     This means removing accents, lowercasing, replacing spaces with dashes,
     etc..
     """
-    # removing accents
     value = re.sub(r"[¢£¤¥§©ª®°²³µ¶¹º¼½¾×‰€™]", "-", value)
-    value = re.sub(r"[éè]", "e", value)
-    value = re.sub(r"[à]", "a", value)
-    value = re.sub(r"[ù]", "u", value)
+    # removing accents, in both cases ("Ô" and "ô" both become "o")
+    value = fold_without_deletion(value)
     # changing unwanted character to "-"
     value = re.sub(r"&\w+;", "-", value)
     value = re.sub(
